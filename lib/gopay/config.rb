@@ -52,7 +52,7 @@ module GoPay
   end
 
   class Configuration
-    attr_accessor :environment, :goid, :success_url, :failed_url, :secure_key
+    attr_accessor :environment, :goid, :success_url, :failed_url, :secure_key, :debug
     attr_reader   :country_codes, :messages
 
     def initialize
