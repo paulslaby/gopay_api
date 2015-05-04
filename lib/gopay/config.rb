@@ -32,6 +32,7 @@ module GoPay
     configuration.success_url = yaml["success_url"]
     configuration.failed_url  = yaml["failed_url"]
     configuration.secure_key  = yaml["secure_key"]
+    configuration.debug  = yaml["debug"]
     
     configuration
   end

@@ -79,7 +79,7 @@ module GoPay
     end
 
     def valid_response?(response, status)
-      check_response
+      check_response response
       goid_valid = (response[:target_go_id].to_s == target_goid)
 
       response_valid = {
@@ -92,7 +92,7 @@ module GoPay
     end
 
     def valid_payment_session?(response, status = nil)
-      check_response
+      check_response response
       
       status_valid = if status
                        response[:session_state] == status
@@ -182,8 +182,8 @@ module GoPay
 
     def check_response(response)
       if response[:result] != GoPay::STATUSES[:call_completed]
-        Rails.info response.inspect if defined?(::Rails) and GoPay.configuration.debug
-       raise "CALL NOT COMPLETED "
+        Rails.logger.info response.inspect if defined?(::Rails) and GoPay.configuration.debug
+        raise "CALL NOT COMPLETED "
       end
     end
   end
