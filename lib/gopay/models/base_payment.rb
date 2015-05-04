@@ -79,7 +79,7 @@ module GoPay
     end
 
     def valid_response?(response, status)
-      raise "CALL NOT COMPLETED " if response[:result] != GoPay::STATUSES[:call_completed]
+      check_response
       goid_valid = (response[:target_go_id].to_s == target_goid)
 
       response_valid = {
@@ -92,7 +92,7 @@ module GoPay
     end
 
     def valid_payment_session?(response, status = nil)
-      raise "CALL NOT COMPLETED " if response[:result] != GoPay::STATUSES[:call_completed]
+      check_response
       
       status_valid = if status
                        response[:session_state] == status
@@ -178,6 +178,13 @@ module GoPay
       }
       query_string = parameters.map { |key, value| "#{key}=#{value}"}.join("&")
       GoPay.configuration.urls["full_integration"] + "?" + query_string
+    end
+
+    def check_response(response)
+      if response[:result] != GoPay::STATUSES[:call_completed]
+        Rails.info response.inspect if defined?(::Rails) and GoPay.configuration.debug
+       raise "CALL NOT COMPLETED "
+      end
     end
   end
 end

@@ -31,6 +31,7 @@ GoPay.configure do |config|
     config.secret = "XXXXX"
     config.success_url = "http://example.com/success"
     config.failed_url = "http://example.com/failed"
+    config.debug = false
 end
 
 </pre>
@@ -44,6 +45,7 @@ goid: XXXXX
 secret: XXXXX
 success_url: http://www.success_url.cz
 failed_url: http://www.failed_url.cz
+debug: false
 
 
 # Ruby:
